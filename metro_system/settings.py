@@ -26,7 +26,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     ".onrender.com",
-    os.getenv("RENDER_EXTERNAL_HOSTNAME", "")
+    'dvm-backend-2.onrender.com'
 ]
 
 
