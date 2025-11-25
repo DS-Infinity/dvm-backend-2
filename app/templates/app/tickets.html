@@ -1,0 +1,44 @@
+<select name="start_station" id="start">
+  {% for st in stations %}
+  <option value="{{ st.id }}">{{ st.name }} ({{ st.line }})</option>
+  {% endfor %}
+</select>
+
+<select name="end_station" id="end">
+  {% for st in stations %}
+  <option value="{{ st.id }}">{{ st.name }} ({{ st.line }})</option>
+  {% endfor %}
+</select>
+
+<p>Cost: <span id="cost">—</span></p>
+
+<p>Path: <span id="path">—</span></p>
+
+<script>
+  const start = document.getElementById('start');
+  const end = document.getElementById('end');
+  const costBox = document.getElementById('cost');
+  const pathBox = document.getElementById('path');
+
+  function update() {
+    const s = start.value;
+    const e = end.value;
+
+    if (!s || !e) {
+      costBox.innerText = '—';
+      return;
+    }
+
+    fetch(`/tickets/path_data/?start=${s}&end=${e}`)
+      .then((res) => res.json())
+      .then((data) => {
+        costBox.innerText = data.cost ?? '—';
+        pathBox.innerText = data.path?.join(' → ') ?? '—';
+      });
+  }
+
+  start.addEventListener('change', update);
+  end.addEventListener('change', update);
+
+  update(); // run once on load
+</script>

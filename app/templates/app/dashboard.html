@@ -1,0 +1,18 @@
+<h1>YO YOU'RE LOGGED IN</h1>
+
+{% block title %}dashboard{% endblock %} {% block content %}
+<p>Welcome, {{ username }}!</p>
+<ul>
+  <li><a href="/scan/">Scan Ticket</a></li>
+  <li><a href="/tickets/">Buy Ticket/ View Tickets</a></li>
+</ul>
+<p>Your tickets:</p>
+<ul>
+  {% for ticket in tickets %}
+  <li>Ticket ID: {{ ticket.id }}, Valid Until: {{ ticket.valid_until }}</li>
+  {% empty %}
+  <li>No tickets found.</li>
+  {% endfor %}
+</ul>
+<a href="/accounts/logout/">Logout</a>
+{% endblock %}
